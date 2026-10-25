@@ -1,0 +1,38 @@
+# Ignore OS / editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# Local env / secrets (never commit)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# Backups / private products (not part of this skill repo)
+workspace/
+scripts/
+prompts/
+.zzz-save/
+*.bak
+
+# Python junk
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+node_modules/
+
+# Test artifacts
+*.log
+.coverage

@@ -1,0 +1,36 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Structure + py_compile shipped template
+        run: |
+          set -euo pipefail
+          root="skills/software-development/scripts-python"
+          test -f "$root/SKILL.md"
+          test -f "$root/references/authoring.md"
+          test -f "$root/references/python-conventions.md"
+          test -f "$root/templates/template_base.py"
+          test ! -e "$root/examples"
+          python3 -m py_compile "$root/templates/template_base.py"
+          echo "OK"
+
+      - name: ruff (lint)
+        run: |
+          pip install --quiet ruff
+          ruff check skills/software-development/scripts-python/templates/template_base.py
